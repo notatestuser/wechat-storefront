@@ -1,6 +1,7 @@
 const express = require('express');
 const proxy = require('express-http-proxy');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const fetch = require('isomorphic-fetch');
 const cors = require('cors');
 const next = require('next');
@@ -22,21 +23,10 @@ process.on('uncaughtException', (err) => {
 app.prepare()
   .then(() => {
     const server = express();
-
-    // == API ==
-
-    const userResHeaderDecorator = (headers) => {
-      headers['cache-control'] = 'no-cache, no-store, must-revalidate';
-      return headers;
-    };
-
-    server.options('/api/walkthechat', cors());
-    server.use('/api/walkthechat', cors(), proxy(WALKTHECHAT_API, {
-      https: true,
-      userResHeaderDecorator,
-    }));
-
+    server.use(cookieParser());
     server.use(bodyParser.json());
+
+    // == App API ==
 
     server.post('/api/logout', (req, res) => {
       res.clearCookie('token');
@@ -68,6 +58,28 @@ app.prepare()
         res.status(500).json({ error: err.message || err });
       }
     });
+
+    // == WalkTheChat API ==
+
+    const userResHeaderDecorator = (headers) => {
+      headers['cache-control'] = 'no-cache, no-store, must-revalidate';
+      return headers;
+    };
+
+    server.options('/api*', cors());
+    server.use('/api*', cors(), proxy(WALKTHECHAT_API, {
+      https: true,
+      userResHeaderDecorator,
+      proxyReqOptDecorator: (proxyReq, req) => {
+        if (req.cookies.token) {
+          proxyReq.headers['x-access-token'] = req.cookies.token;
+        }
+        if (req.query.project) {
+          proxyReq.headers['x-id-project'] = req.query.project;
+        }
+        return proxyReq;
+      },
+    }));
 
     server.use(handler);
 

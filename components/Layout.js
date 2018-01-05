@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 
+import Router from 'next/router';
 import { Link } from '../routes';
 import FlexBox from '../components/FlexBox';
 
@@ -47,22 +48,40 @@ export default ({ title, children }) => [
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
           <Menu.Item key="1">
             <Icon type="home" />
-            <span className="nav-text">
-              Your Store
+            <span
+              className="nav-text"
+              onClick={() => { Router.replace('/'); }}
+              onKeyPress={() => {}}
+              role="button"
+              tabIndex="-1"
+            >
+              <a>Your Store</a>
             </span>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="appstore-o" />
-            <span className="nav-text">
-              Products
+            <span
+              className="nav-text"
+              onClick={() => { Router.replace('/products'); }}
+              onKeyPress={() => {}}
+              role="button"
+              tabIndex="-1"
+            >
+              <a>Products</a>
             </span>
           </Menu.Item>
           <Menu.Item key="3">
             <Icon type="upload" />
             <Link route="/logout">
-              <a className="nav-text">
-                Log Out
-              </a>
+              <span
+                className="nav-text"
+                onClick={() => { Router.replace('/logout'); }}
+                onKeyPress={() => {}}
+                role="button"
+                tabIndex="-1"
+              >
+                <a>Log Out</a>
+              </span>
             </Link>
           </Menu.Item>
         </Menu>

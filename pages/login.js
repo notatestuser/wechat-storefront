@@ -47,7 +47,9 @@ export class Login extends React.Component {
   render() {
     return (
       <Layout title="Login">
-        <Heading>Login</Heading>
+        <Heading>
+          Admin Login
+        </Heading>
         <FlexBox>
           <LoginForm component={Form} onSubmit={this._onSubmit}>
             <FormItem>
