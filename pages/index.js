@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { Alert } from 'antd';
+
 import Layout from '../components/Layout';
 import FlexBox from '../components/FlexBox';
 import Heading from '../components/Heading';
+import HomeButton from '../components/HomeButton';
 import withAuth from '../utils/withAuth';
 import redirect from '../utils/redirect';
 
@@ -13,14 +16,27 @@ export class Index extends React.Component {
   }
 
   render() {
-    return (
+    return [
       <Layout>
         <Heading>Welcome {this.props.user.username}!</Heading>
-        <FlexBox justify="center">
-          <div>Welcome to your storefront.</div>
+        <Alert message="You were successfully logged in." type="success" />
+        <FlexBox>
+          <HomeButton route="/info">
+            Store
+          </HomeButton>
+          <HomeButton route="/products">
+            Products
+          </HomeButton>
+          <HomeButton route="/logout">
+            Log Out
+          </HomeButton>
         </FlexBox>
-      </Layout>
-    );
+      </Layout>,
+      <style jsx>{`
+        .ant-alert { margin-bottom: 26px; }
+      `}
+      </style>,
+    ];
   }
 }
 

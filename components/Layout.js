@@ -10,8 +10,7 @@ import {
 } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 
-import Router from 'next/router';
-import { Link } from '../routes';
+import { Router, Link } from '../routes';
 import FlexBox from '../components/FlexBox';
 
 const {
@@ -28,6 +27,8 @@ const Logo = styled.div`
   line-height: 2.5em;
   padding: 0 30px 0 22px;
 `;
+
+const NavAnchor = styled.a` color: white `;
 
 export default ({ title, children }) => [
   <Head key="Head">
@@ -50,24 +51,28 @@ export default ({ title, children }) => [
             <Icon type="home" />
             <span
               className="nav-text"
-              onClick={() => { Router.replace('/'); }}
+              onClick={() => { Router.pushRoute('/'); }}
+              onMouseOver={() => { Router.prefetchRoute('/'); }}
+              onFocus={() => { Router.prefetchRoute('/'); }}
               onKeyPress={() => {}}
               role="button"
               tabIndex="-1"
             >
-              <a>Your Store</a>
+              <NavAnchor>Home</NavAnchor>
             </span>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="appstore-o" />
             <span
               className="nav-text"
-              onClick={() => { Router.replace('/products'); }}
+              onClick={() => { Router.pushRoute('/products'); }}
+              onMouseOver={() => { Router.prefetchRoute('/products'); }}
+              onFocus={() => { Router.prefetchRoute('/products'); }}
               onKeyPress={() => {}}
               role="button"
               tabIndex="-1"
             >
-              <a>Products</a>
+              <NavAnchor>Products</NavAnchor>
             </span>
           </Menu.Item>
           <Menu.Item key="3">
@@ -75,19 +80,19 @@ export default ({ title, children }) => [
             <Link route="/logout">
               <span
                 className="nav-text"
-                onClick={() => { Router.replace('/logout'); }}
+                onClick={() => { Router.pushRoute('/logout'); }}
                 onKeyPress={() => {}}
                 role="button"
                 tabIndex="-1"
               >
-                <a>Log Out</a>
+                <NavAnchor>Log Out</NavAnchor>
               </span>
             </Link>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
-        <FlexBox direction="column">
+        <FlexBox direction="column" wrap="nowrap">
           <Content style={{ padding: '35px 50px' }}>
             <div
               style={{
@@ -102,7 +107,8 @@ export default ({ title, children }) => [
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            © {new Date().getFullYear()} Luke Plaster &lt;me@lukep.org&gt;
+            © {new Date().getFullYear()} Luke Plaster &nbsp;
+            <a href="mailto:me@lukep.org">me@lukep.org</a>
           </Footer>
         </FlexBox>
       </Layout>

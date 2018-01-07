@@ -1,3 +1,4 @@
+const url = require('url');
 const express = require('express');
 const proxy = require('express-http-proxy');
 const bodyParser = require('body-parser');
@@ -29,8 +30,11 @@ app.prepare()
     // == App API ==
 
     server.post('/api/logout', (req, res) => {
-      res.clearCookie('token');
-      res.status(200).json({ ok: true });
+      res
+        .clearCookie('token')
+        .clearCookie('project')
+        .status(200)
+        .json({ ok: true });
     });
 
     server.post('/api/login', async (req, res) => {
@@ -49,7 +53,17 @@ app.prepare()
           const { exp } = token;
           const expires = new Date(exp * 1000);
           debug('Token expires at', expires);
-          res.cookie('token', json.info.token, { expires }).json({ ok: true });
+          const resp2 = await fetch(`${WALKTHECHAT_API}/projects/me`, {
+            headers: { 'x-access-token': json.info.token },
+          });
+          if (resp2.status !== 200) {
+            debug('Login error', resp2.status, resp2.statusText);
+          }
+          const { projects: [project] } = await resp2.json();
+          res
+            .cookie('token', json.info.token, { expires })
+            .cookie('project', project.id, { expires })
+            .json({ ok: true });
         } else {
           debug('Login error', resp.status, resp.statusText);
           res.status(400).json({ ok: false, error: json.error });
@@ -70,13 +84,20 @@ app.prepare()
     server.use('/api*', cors(), proxy(WALKTHECHAT_API, {
       https: true,
       userResHeaderDecorator,
+      proxyReqPathResolver: req => {
+        const { path } = url.parse(req.baseUrl);
+        return path.replace(/^\/api/, '');
+      },
       proxyReqOptDecorator: (proxyReq, req) => {
+        debug('cookies', req.cookies);
+        proxyReq.headers['x-language'] = 'en';
         if (req.cookies.token) {
           proxyReq.headers['x-access-token'] = req.cookies.token;
         }
-        if (req.query.project) {
-          proxyReq.headers['x-id-project'] = req.query.project;
+        if (req.cookies.project) {
+          proxyReq.headers['x-id-project'] = req.cookies.project;
         }
+        debug('headers', proxyReq.headers);
         return proxyReq;
       },
     }));

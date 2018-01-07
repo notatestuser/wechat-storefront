@@ -12,7 +12,7 @@
     "lint": "eslint --ext .js ."
   },
   "dependencies": {
-    "antd": "^2.13.0",
+    "antd": "^3",
     "apollo-client-preset": "^1.0.5",
     "apollo-link-context": "^1.0.0",
     "body-parser": "^1.18.2",
@@ -38,6 +38,7 @@
     "react-auto-form": "^2.0.0",
     "react-dom": "^16",
     "react-no-ssr": "^1.1.0",
+    "striptags": "^3.1.1",
     "styled-components": "^2.2.2",
     "typescript-fsa": "^2.5.0"
   },

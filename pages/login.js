@@ -1,7 +1,7 @@
 import React from 'react';
+import AutoForm from 'react-auto-form';
 
 import { Form, Icon, Input, Button, message } from 'antd';
-import AutoForm from 'react-auto-form';
 import styled from 'styled-components';
 import pick from 'pedantic-pick';
 import ifetch from 'isomorphic-fetch';
@@ -13,6 +13,7 @@ import withAuth from '../utils/withAuth';
 import redirect from '../utils/redirect';
 
 const FormItem = Form.Item;
+const TighterFormItem = styled(FormItem)` margin-bottom: 12px; `;
 const LoginForm = styled(AutoForm)` min-width: 350px; `;
 const LoginButton = styled(Button)` width: 100%; `;
 const ForgotLink = styled.a` float: right; `;
@@ -23,8 +24,11 @@ export class Login extends React.Component {
     return {};
   }
 
+  state = { loading: false }
+
   _onSubmit = async (ev, data) => {
     ev.preventDefault();
+    this.setState({ loading: true });
     try {
       const picked = pick(data, '!nes::username', '!nes::password');
       const resp = await ifetch('/api/login', {
@@ -42,6 +46,7 @@ export class Login extends React.Component {
       console.error('Login failed', err.message || err);
       message.error('Unable to login. Please check your credentials.');
     }
+    this.setState({ loading: false });
   }
 
   render() {
@@ -52,24 +57,25 @@ export class Login extends React.Component {
         </Heading>
         <FlexBox>
           <LoginForm component={Form} onSubmit={this._onSubmit}>
-            <FormItem>
+            <TighterFormItem>
               <Input type="email" name="username" placeholder="Email address" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} autofocus={true} />
-            </FormItem>
-            <FormItem>
+            </TighterFormItem>
+            <TighterFormItem>
               <Input type="password" name="password" placeholder="Password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-            </FormItem>
-            <FormItem>
-              <LoginButton type="primary" htmlType="submit">
+            </TighterFormItem>
+            <TighterFormItem>
+              <LoginButton type="primary" htmlType="submit" disabled={this.state.loading}>
                 Log in
               </LoginButton>
-              Or&nbsp;
+            </TighterFormItem>
+            <TighterFormItem>
               <a href="https://cms.walkthechat.com/signup" target="_blank" rel="noopener noreferrer">
-                register now
+                Register now
               </a>
               <ForgotLink href="https://cms.walkthechat.com/password-recovery" target="_blank" rel="noopener noreferrer">
                 Forgot password?
               </ForgotLink>
-            </FormItem>
+            </TighterFormItem>
           </LoginForm>
         </FlexBox>
       </Layout>

@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
           </style>
           <link
             rel="stylesheet"
-            href="//cdn.jsdelivr.net/npm/antd@2.13.11/dist/antd.min.css"
+            href="//cdn.jsdelivr.net/npm/antd@3.1.0/dist/antd.min.css"
           />
           {this.props.styleTags}
         </Head>
