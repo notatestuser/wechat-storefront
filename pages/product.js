@@ -1,12 +1,11 @@
 import React from 'react';
 import striptags from 'striptags';
 import styled from 'styled-components';
-import { Alert, Card, Tabs, List, Select, Icon } from 'antd';
-import { Link } from '../routes';
+import { Alert, Button, Tabs, List, Select } from 'antd';
+import { Router } from '../routes';
 
 import Layout from '../components/Layout';
 import FlexBox from '../components/FlexBox';
-import Heading from '../components/Heading';
 import withAuth from '../utils/withAuth';
 import redirect from '../utils/redirect';
 import apiRequest from '../utils/walkthechat-api';
@@ -16,17 +15,33 @@ const { Option } = Select;
 
 const generateDescriptionHtml = html => ({ __html: striptags(html, ['h4', 'p', 'strong']) });
 
-const generatePhotosHtml = html => ({ __html: striptags(html, ['img']) });
+const generatePhotosHtml = html => ({ __html: striptags(html, ['img'], '\n').split('\n').filter(s => s.startsWith('<img')).join('') });
 
-const generateProductDescription = (products, language) => (
-  <div>
-    <Heading>{products[language].title}</Heading>
-    <div dangerouslySetInnerHTML={generateDescriptionHtml(products[language].description)} />
-  </div>
-);
+const generateProductDescription = (products, language) =>
+  <div dangerouslySetInnerHTML={generateDescriptionHtml(products[language].description)} />;
 
 const generateProductPhotos = products =>
   <div dangerouslySetInnerHTML={generatePhotosHtml(products.en.description)} />;
+
+const ProductTitle = styled.h1`
+  margin: 0;
+  line-height: 2;
+`;
+
+const ProductImage = styled.img`
+  float: right;
+  object-fit: scale-down;
+  object-position: top;
+`;
+
+const BackToListButton = (
+  <Button
+    onClick={() => { Router.pushRoute('/products'); }}
+    onMouseOver={() => { Router.prefetchRoute('/products'); }}
+    onFocus={() => { Router.prefetchRoute('/products'); }}
+  >
+    Back to Products
+  </Button>);
 
 export class ProductView extends React.Component {
   static async getInitialProps(context, isLoggedIn: boolean) {
@@ -44,10 +59,6 @@ export class ProductView extends React.Component {
 
   state = { language: 'en' }
 
-  changeLanguage = (language = 'en') => {
-    this.setState({ language });
-  }
-
   render() {
     const { products, error } = this.props;
     const { language } = this.state;
@@ -55,19 +66,22 @@ export class ProductView extends React.Component {
       <Layout>
         {error ? <Alert message="An error occurred." type="error" /> : null}
         <FlexBox>
-          <FlexBox direction="column" flex="1">
+          <FlexBox direction="column" flex="1" padding="0 8px 0 0">
             <div style={{ marginBottom: 16 }}>
               Display language &nbsp;
               <Select
-                value={language}
-                onChange={this.changeTabPosition}
+                defaultValue={language}
+                onChange={(lang) => { this.setState({ language: lang }); }}
                 dropdownMatchSelectWidth={false}
               >
                 <Option value="en">English</Option>
                 <Option value="cn">Chinese</Option>
               </Select>
             </div>
-            <Tabs>
+            <ProductTitle>
+              {products[language].title}
+            </ProductTitle>
+            <Tabs tabBarExtraContent={BackToListButton}>
               <TabPane tab="Description" key="1">
                 {generateProductDescription(products, language)}
               </TabPane>
@@ -83,9 +97,6 @@ export class ProductView extends React.Component {
                   }, {
                     title: 'Price',
                     value: products.en.price,
-                  }, {
-                    title: 'Sales Price',
-                    value: products.en.salesPrice,
                   }, {
                     title: 'Min Price',
                     value: products.en.min_price,
@@ -106,7 +117,7 @@ export class ProductView extends React.Component {
             </Tabs>
           </FlexBox>
           <FlexBox flex="0">
-            <img src={products[language].thumbnail} alt="product" align="right" />
+            <ProductImage src={products[language].thumbnail} alt="product" align="right" />
           </FlexBox>
         </FlexBox>
       </Layout>
