@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Product /> renders correctly 1`] = `
+<div
+  className="ant-card sc-bdVaJa crvomV ant-card-bordered"
+>
+  <div
+    className="ant-card-cover"
+  >
+    <img
+      alt="example"
+      className="sc-htpNat hcQtxM"
+      src="https://lukep.org/placeholder.png"
+    />
+  </div>
+  <div
+    className="ant-card-body"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <div>
+      <div
+        className="ant-card-meta"
+      >
+        <div
+          className="ant-card-meta-detail"
+        >
+          <div
+            className="ant-card-meta-title"
+          >
+            <h4
+              className="sc-bwzfXH DZENQ"
+            >
+              Product Title
+            </h4>
+          </div>
+          <div
+            className="ant-card-meta-description"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Product Description",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul
+    className="ant-card-actions"
+  >
+    <li
+      style={
+        Object {
+          "width": "33.333333333333336%",
+        }
+      }
+    >
+      <span>
+        <a
+          href="/product/abc"
+          onClick={[Function]}
+        >
+          <i
+            className="anticon anticon-info-circle"
+          />
+        </a>
+      </span>
+    </li>
+    <li
+      style={
+        Object {
+          "width": "33.333333333333336%",
+        }
+      }
+    >
+      <span>
+        <i
+          className="anticon anticon-wechat"
+        />
+      </span>
+    </li>
+    <li
+      style={
+        Object {
+          "width": "33.333333333333336%",
+        }
+      }
+    >
+      <span>
+        <i
+          className="anticon anticon-ellipsis"
+        />
+      </span>
+    </li>
+  </ul>
+</div>
+`;
