@@ -32,7 +32,7 @@ export class Index extends React.Component {
           </HomeButton>
         </FlexBox>
       </Layout>,
-      <style jsx>{`
+      <style jsx={true}>{`
         .ant-alert { margin-bottom: 26px; }
       `}
       </style>,

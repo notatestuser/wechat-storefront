@@ -66,7 +66,9 @@ export class Products extends React.Component {
             >
               <Meta
                 title={<ProductTitle>{product.title}</ProductTitle>}
-                description={<div dangerouslySetInnerHTML={generateDescriptionHtml(product.description)} />}
+                description={<div
+                  dangerouslySetInnerHTML={generateDescriptionHtml(product.description)}
+                />}
               />
             </Product>)
           ) : null}
