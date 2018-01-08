@@ -59,7 +59,7 @@ export class Login extends React.Component {
         <FlexBox>
           <LoginForm component={Form} onSubmit={this._onSubmit}>
             <TighterFormItem>
-              <Input type="email" name="username" placeholder="Email address" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} autofocus={true} />
+              <Input type="email" name="username" placeholder="Email address" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} autoFocus={true} />
             </TighterFormItem>
             <TighterFormItem>
               <Input type="password" name="password" placeholder="Password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
