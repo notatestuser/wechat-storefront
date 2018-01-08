@@ -8,7 +8,7 @@ exports[`<Product /> renders correctly 1`] = `
     className="ant-card-cover"
   >
     <img
-      alt="example"
+      alt="product"
       className="sc-htpNat hcQtxM"
       src="https://lukep.org/placeholder.png"
     />
