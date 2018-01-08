@@ -28,7 +28,14 @@ const Logo = styled.div`
   padding: 0 30px 0 22px;
 `;
 
-const NavAnchor = styled.a` color: white `;
+const NavAnchor = styled.a`
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: white;
+  }
+`;
 
 export default ({ title, children }) => [
   <Head key="Head">

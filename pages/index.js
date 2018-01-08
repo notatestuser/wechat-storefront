@@ -18,7 +18,9 @@ export class Index extends React.Component {
   render() {
     return [
       <Layout>
-        <Heading>Welcome {this.props.user.username}!</Heading>
+        <Heading>
+          Welcome {this.props.user.username}!
+        </Heading>
         <Alert message="You were successfully logged in." type="success" />
         <FlexBox>
           <HomeButton route="/info">

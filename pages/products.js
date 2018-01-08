@@ -6,6 +6,7 @@ import { Link } from '../routes';
 
 import Layout from '../components/Layout';
 import FlexBox from '../components/FlexBox';
+import Heading from '../components/Heading';
 import withAuth from '../utils/withAuth';
 import redirect from '../utils/redirect';
 import apiRequest from '../utils/walkthechat-api';
@@ -49,6 +50,9 @@ export class Products extends React.Component {
     const { products, error } = this.props;
     return (
       <Layout>
+        <Heading>
+          Products
+        </Heading>
         {error ? <Alert message="An error occurred." type="error" /> : null}
         <FlexBox justify="space-between">
           {products ? products.map(product => (
