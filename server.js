@@ -57,7 +57,7 @@ app.prepare()
             headers: { 'x-access-token': json.info.token },
           });
           if (resp2.status !== 200) {
-            debug('Login error', resp2.status, resp2.statusText);
+            console.error('Login error', resp.status, resp.statusText, resp);
           }
           const { projects: [project] } = await resp2.json();
           res
@@ -65,10 +65,11 @@ app.prepare()
             .cookie('project', project.id, { expires })
             .json({ ok: true });
         } else {
-          debug('Login error', resp.status, resp.statusText);
+          console.error('Login error', resp.status, resp.statusText, resp);
           res.status(400).json({ ok: false, error: json.error });
         }
       } catch (err) {
+        console.error('Login error', err.message, err);
         res.status(500).json({ error: err.message || err });
       }
     });
