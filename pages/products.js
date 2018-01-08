@@ -26,13 +26,13 @@ export class Products extends React.Component {
   render() {
     const { products, error } = this.props;
     return (
-      <Layout>
+      <Layout title="Products">
         <Heading>
           Products
         </Heading>
         {error ? <Alert message="An error occurred." type="error" /> : null}
         <FlexBox justify="space-between">
-          {products ? products.map(product => <Product {...product} />) : null}
+          {products ? products.map(product => <Product key={product.id} {...product} />) : null}
         </FlexBox>
       </Layout>
     );

@@ -26,7 +26,7 @@ export class LogOutHandler extends React.Component {
 export class LogOut extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout title="Logging Out">
         <NoSSR onSSR={<Loading />}>
           <LogOutHandler />
         </NoSSR>

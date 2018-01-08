@@ -37,6 +37,15 @@ const NavAnchor = styled.a`
   }
 `;
 
+const getSelectedMenuKeys = (title) => ((t) => {
+  switch (t) {
+    case 'Home': return ['1'];
+    case 'Products': return ['2'];
+    case 'Logging Out': return ['3'];
+    default: return ['0'];
+  }
+})(title);
+
 export default ({ title, children }) => [
   <Head key="Head">
     <title>
@@ -55,7 +64,7 @@ export default ({ title, children }) => [
           &nbsp;
           Store
         </Logo>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        <Menu theme="dark" mode="inline" selectable={false} selectedKeys={getSelectedMenuKeys(title)}>
           <Menu.Item key="1">
             <Icon type="home" />
             <span
@@ -84,20 +93,21 @@ export default ({ title, children }) => [
               <NavAnchor>Products</NavAnchor>
             </span>
           </Menu.Item>
-          <Menu.Item key="3">
-            <Icon type="upload" />
-            <Link route="/logout">
-              <span
-                className="nav-text"
-                onClick={() => { Router.pushRoute('/logout'); }}
-                onKeyPress={() => {}}
-                role="button"
-                tabIndex="-1"
-              >
-                <NavAnchor>Log Out</NavAnchor>
-              </span>
-            </Link>
-          </Menu.Item>
+          {title !== 'Login' ? (
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <Link route="/logout">
+                <span
+                  className="nav-text"
+                  onClick={() => { Router.pushRoute('/logout'); }}
+                  onKeyPress={() => {}}
+                  role="button"
+                  tabIndex="-1"
+                >
+                  <NavAnchor>Log Out</NavAnchor>
+                </span>
+              </Link>
+            </Menu.Item>) : null}
         </Menu>
       </Sider>
       <Layout>

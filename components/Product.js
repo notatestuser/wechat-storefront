@@ -15,8 +15,10 @@ const StyledProduct = styled(Card)`
   width: 300px;
 `;
 
-const ProductTitle = styled.h4`
-  margin-bottom: 12px;
+const ProductTitleLink = styled.a`
+  color: black;
+  line-height: 2.5;
+  text-decoration: underline;
 `;
 
 const CoverImage = styled.img`
@@ -39,7 +41,12 @@ export default (product) => (
     ]}
   >
     <Meta
-      title={<ProductTitle>{product.title}</ProductTitle>}
+      title={
+        <Link route={`/product/${product.id}`} prefetch={true}>
+          <ProductTitleLink>
+            {product.title}
+          </ProductTitleLink>
+        </Link>}
       description={<div
         dangerouslySetInnerHTML={generateDescriptionHtml(product.description)}
       />}

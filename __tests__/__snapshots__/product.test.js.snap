@@ -31,11 +31,12 @@ exports[`<Product /> renders correctly 1`] = `
           <div
             className="ant-card-meta-title"
           >
-            <h4
-              className="sc-bwzfXH DZENQ"
+            <a
+              className="sc-bwzfXH kSHNXX"
+              onClick={[Function]}
             >
               Product Title
-            </h4>
+            </a>
           </div>
           <div
             className="ant-card-meta-description"

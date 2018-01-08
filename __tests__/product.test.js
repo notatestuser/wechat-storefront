@@ -22,6 +22,7 @@ describe('<Product />', () => {
   });
 
   it('links to the product page', () => {
+    expect.assertions(2);
     const product = {
       description: 'Product Description',
       id: 'abc',
@@ -29,11 +30,13 @@ describe('<Product />', () => {
       title: 'Product Title',
     };
     const component = mount(<Product {...product} />);
-    const actualProps = component.find(Link).props();
-    expect(actualProps).toEqual({
-      route: '/product/abc',
-      prefetch: true,
-      children: actualProps.children,
+    component.find(Link).forEach(node => {
+      const actualProps = node.props();
+      expect(actualProps).toEqual({
+        route: '/product/abc',
+        prefetch: true,
+        children: actualProps.children,
+      });
     });
   });
 

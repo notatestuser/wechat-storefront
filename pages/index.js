@@ -17,15 +17,12 @@ export class Index extends React.Component {
 
   render() {
     return [
-      <Layout>
+      <Layout title="Home">
         <Heading>
           Welcome {this.props.user.username}!
         </Heading>
         <Alert message="You were successfully logged in." type="success" />
         <FlexBox>
-          <HomeButton route="/info">
-            Store
-          </HomeButton>
           <HomeButton route="/products">
             Products
           </HomeButton>

@@ -63,7 +63,7 @@ export class ProductView extends React.Component {
     const { products, error } = this.props;
     const { language } = this.state;
     return (
-      <Layout>
+      <Layout title="Product View">
         {error ? <Alert message="An error occurred." type="error" /> : null}
         <FlexBox>
           <FlexBox direction="column" flex="1" padding="0 8px 0 0">
