@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
+import NProgress from 'nprogress';
 
 import {
   Icon,
@@ -39,12 +40,28 @@ const NavAnchor = styled.a`
 
 const getSelectedMenuKeys = (title) => ((t) => {
   switch (t) {
-    case 'Home': return ['1'];
-    case 'Products': return ['2'];
-    case 'Logging Out': return ['3'];
+    case 'Home': return ['home'];
+    case 'Products': return ['products'];
+    case 'Logging Out': return ['logout'];
     default: return ['0'];
   }
 })(title);
+
+const handleMenuClick = (key) => {
+  switch (key) {
+    case 'home': Router.pushRoute('/'); break;
+    case 'products': Router.pushRoute('/products'); break;
+    case 'logout': Router.pushRoute('/logout'); break;
+    default: break;
+  }
+};
+
+Router.onRouteChangeStart = (url) => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+};
+Router.onRouteChangeComplete = () => NProgress.done();
+Router.onRouteChangeError = () => NProgress.done();
 
 export default ({ title, children }) => [
   <Head key="Head">
@@ -64,29 +81,30 @@ export default ({ title, children }) => [
           &nbsp;
           Store
         </Logo>
-        <Menu theme="dark" mode="inline" selectable={false} selectedKeys={getSelectedMenuKeys(title)}>
-          <Menu.Item key="1">
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={getSelectedMenuKeys(title)}
+          onSelect={({ key }) => handleMenuClick(key)}
+        >
+          <Menu.Item key="home">
             <Icon type="home" />
             <span
               className="nav-text"
-              onClick={() => { Router.pushRoute('/'); }}
               onMouseOver={() => { Router.prefetchRoute('/'); }}
               onFocus={() => { Router.prefetchRoute('/'); }}
-              onKeyPress={() => {}}
               role="button"
               tabIndex="-1"
             >
               <NavAnchor>Home</NavAnchor>
             </span>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="products">
             <Icon type="appstore-o" />
             <span
               className="nav-text"
-              onClick={() => { Router.pushRoute('/products'); }}
               onMouseOver={() => { Router.prefetchRoute('/products'); }}
               onFocus={() => { Router.prefetchRoute('/products'); }}
-              onKeyPress={() => {}}
               role="button"
               tabIndex="-1"
             >
@@ -94,13 +112,11 @@ export default ({ title, children }) => [
             </span>
           </Menu.Item>
           {title !== 'Login' ? (
-            <Menu.Item key="3">
+            <Menu.Item key="logout">
               <Icon type="upload" />
               <Link route="/logout">
                 <span
                   className="nav-text"
-                  onClick={() => { Router.pushRoute('/logout'); }}
-                  onKeyPress={() => {}}
                   role="button"
                   tabIndex="-1"
                 >

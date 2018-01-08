@@ -50,6 +50,7 @@ export class Login extends React.Component {
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <Layout title="Login">
         <Heading>
@@ -64,8 +65,9 @@ export class Login extends React.Component {
               <Input type="password" name="password" placeholder="Password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
             </TighterFormItem>
             <TighterFormItem>
-              <LoginButton type="primary" htmlType="submit" disabled={this.state.loading}>
-                Log in
+              <LoginButton type="primary" htmlType="submit" disabled={loading}>
+                {!loading ? 'Log in' : null}
+                {loading ? <Icon type="loading" style={{ color: 'black' }} /> : null}
               </LoginButton>
             </TighterFormItem>
             <TighterFormItem>

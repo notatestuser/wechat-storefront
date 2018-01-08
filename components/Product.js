@@ -31,7 +31,7 @@ export default (product) => (
   <StyledProduct
     key={product.id}
     bodyStyle={{ flex: 1 }}
-    cover={<CoverImage alt="example" src={product.thumbnail} />}
+    cover={<CoverImage alt="product" src={product.thumbnail} />}
     actions={[
       <Link route={`/product/${product.id}`} prefetch={true}>
         <a><Icon type="info-circle" /></a>

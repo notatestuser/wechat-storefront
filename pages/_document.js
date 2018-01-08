@@ -25,6 +25,10 @@ export default class MyDocument extends Document {
           </style>
           <link
             rel="stylesheet"
+            href="/static/nprogress.css"
+          />
+          <link
+            rel="stylesheet"
             href="//cdn.jsdelivr.net/npm/antd@3.1.0/dist/antd.min.css"
           />
           {this.props.styleTags}
