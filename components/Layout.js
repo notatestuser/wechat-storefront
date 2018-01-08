@@ -33,7 +33,7 @@ const NavAnchor = styled.a` color: white `;
 export default ({ title, children }) => [
   <Head key="Head">
     <title>
-      Store CMS{title ? ` - ${title}` : ''}
+      My Store{title ? ` - ${title}` : ''}
     </title>
   </Head>,
   <LocaleProvider key="LocaleProvider" locale={enUS}>
@@ -44,7 +44,9 @@ export default ({ title, children }) => [
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
         <Logo>
-          Store CMS
+          <Icon type="wechat" />
+          &nbsp;
+          Store
         </Logo>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
           <Menu.Item key="1">
