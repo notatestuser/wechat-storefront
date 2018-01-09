@@ -15,7 +15,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handler = routes.getRequestHandler(app);
 
-const WALKTHECHAT_API = 'https://cms-api-v2.walkthechat.com';
+const WALKTHECHAT_API = 'https://rest-cms-api-v2.walkthechat.com';
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught exception', err);

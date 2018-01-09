@@ -71,10 +71,10 @@ export class Login extends React.Component {
               </LoginButton>
             </TighterFormItem>
             <TighterFormItem>
-              <a href="https://cms.walkthechat.com/signup" target="_blank" rel="noopener noreferrer">
+              <a href="https://app.walkthechat.com/signup" target="_blank" rel="noopener noreferrer">
                 Register now
               </a>
-              <ForgotLink href="https://cms.walkthechat.com/password-recovery" target="_blank" rel="noopener noreferrer">
+              <ForgotLink href="https://app.walkthechat.com/password-recovery" target="_blank" rel="noopener noreferrer">
                 Forgot password?
               </ForgotLink>
             </TighterFormItem>
