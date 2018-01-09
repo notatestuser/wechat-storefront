@@ -12,6 +12,7 @@ const StyledProduct = styled(Card)`
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  margin-right: 15px;
   width: 300px;
 `;
 

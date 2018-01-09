@@ -28,12 +28,6 @@ const ProductTitle = styled.h1`
   line-height: 2;
 `;
 
-const ProductImage = styled.img`
-  float: right;
-  object-fit: scale-down;
-  object-position: top;
-`;
-
 const BackToListButton = (
   <Button
     onClick={() => { Router.pushRoute('/products'); }}
@@ -115,9 +109,6 @@ export class ProductView extends React.Component {
                 />
               </TabPane>
             </Tabs>
-          </FlexBox>
-          <FlexBox flex="0">
-            <ProductImage src={products[language].thumbnail} alt="product" align="right" />
           </FlexBox>
         </FlexBox>
       </Layout>

@@ -31,7 +31,7 @@ export class Products extends React.Component {
           Products
         </Heading>
         {error ? <Alert message="An error occurred." type="error" /> : null}
-        <FlexBox justify="space-between">
+        <FlexBox>
           {products ? products.map(product => <Product key={product.id} {...product} />) : null}
         </FlexBox>
       </Layout>
