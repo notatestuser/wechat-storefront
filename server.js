@@ -83,7 +83,6 @@ app.prepare()
 
     server.options('/api*', cors());
     server.use('/api*', cors(), proxy(WALKTHECHAT_API, {
-      https: true,
       userResHeaderDecorator,
       proxyReqPathResolver: req => {
         const { path } = url.parse(req.baseUrl);
